@@ -1,7 +1,7 @@
 # mall-vue
 > 高仿小米商城
 
-## 1 vue cil脚手架
+## 1 vue cil4脚手架
 
 如已安装低版本，需要先卸载
 
@@ -16,7 +16,36 @@ npm install -g @vue/cli
 vue create name
 ```
 
+## 知识点
+### 使用代理解决跨域问题
+```
+   devServer: {
+        host: 'localhost',
+        port: 8080,
+        proxy: {
+            '/api': {
+                target: 'http://mall-pre.springboot.cn',
+                changeOrigin: true,
+                pathRewrite: {
+                    '/api': ''
+                }
+            }
+        }
+    }
+```
+### 需求梳理
+- 熟悉文档、查看原型、读懂需求
+- 了解前端设计稿-设置前端业务架构
+- 了解后端接口文档-定制相关对接规范
+- 协调资源
+- 搭建前端架构
 
+
+## npm install
+
+```
+npm i vue-lazyload element-ui node-saas sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev 
+```
 
 
 ## 静态部署
