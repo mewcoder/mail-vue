@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0a4429"],{"064a":function(n,a,e){"use strict";e.r(a);var l=function(){var n=this,a=n.$createElement,e=n._self._c||a;return e("div",[n._v(" alipay ")])},t=[],u={name:"alipay"},c=u,i=e("2877"),p=Object(i["a"])(c,l,t,!1,null,null,null);a["default"]=p.exports}}]);
+//# sourceMappingURL=chunk-2d0a4429.8e26fbd0.js.map
