@@ -41,11 +41,18 @@ vue create name
 - 搭建前端架构
 
 
-## npm install
+### npm install
 
 ```
 npm i vue-lazyload element-ui node-saas sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev 
 ```
+```
+npm set sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+npm set registry=https://registry.npm.taobao.org
+```
+
+### 接口错误拦截
+
 
 
 ## 静态部署
