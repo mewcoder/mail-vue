@@ -9,12 +9,13 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;">用户</a>
-          <a href="javascript:;">登录</a>
-          <a href="javascript:;">退出</a>
-          <a href="javascript:;">我的订单</a>
-          <a href="javascript:;" class="my-cart">
-            <span class="icon-cart"></span>购物车
+          <a href="javascript:;" v-if="username">{{username}}</a>
+          <a href="javascript:;" v-if="!username" @click="login">登录</a>
+          <a href="javascript:;" v-if="username" @click="logout">退出</a>
+          <a href="/#/order/list" v-if="username">我的订单</a>
+          <a href="javascript:;" class="my-cart" @click="goToCart">
+            <span class="icon-cart"></span>
+            购物车({{cartCount}})
           </a>
         </div>
       </div>
@@ -25,7 +26,22 @@
           <a href="/#/index"></a>
         </div>
         <div class="header-menu">
-          <div class="menu-item">小米手机</div>
+          <div class="menu-item">
+            小米手机
+            <div class="children">
+              <ul>
+                <li class="product" v-for="(item,index) in phoneList" :key="index">
+                  <a :href="'/#/product/'+item.id" target="_blank">
+                    <div class="pro-img">
+                      <img :src="item.mainImage" :alt="item.subtitle" />
+                    </div>
+                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-price">{{item.price | currency}}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <div class="menu-item">Redmi红米</div>
           <div class="menu-item">小米电视</div>
         </div>
@@ -45,6 +61,45 @@
 <script>
 export default {
   name: "nav-header",
+  data() {
+    return {
+      phoneList: [],
+      username: "test",
+      cartCount:1
+    };
+  },
+  mounted() {
+    this.getProductList();
+  },
+  filters: {
+    currency(val) {
+      if (!val) return "0.00";
+      return "￥" + val.toFixed(2) + "元";
+    },
+  },
+  methods: {
+    getProductList() {
+      this.axios
+        .get("/products", {
+          params: {
+            categoryId: "100012",
+            pageSize: 6,
+          },
+        })
+        .then((res) => {
+          this.phoneList = res.list;
+        });
+    },
+    login() {
+      this.$router.push("/login");
+    },
+    logout() {
+      this.$router.push("/login");
+    },
+    goToCart() {
+      this.$router.push("/cart");
+    },
+  },
 };
 </script>
 
@@ -128,9 +183,67 @@ export default {
           cursor: pointer;
           &:hover {
             color: $colorA;
+            .children {
+              height: 220px;
+              opacity: 1;
+            }
+          }
+          .children {
+            height: 0;
+            opacity: 0;
+            position: absolute;
+            top: 112px;
+            left: 0;
+            width: 1226px;
+            height: 0;
+            transition: all 0.5s;
+            border-top: 1px solid #e5e5e5;
+            box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
+            .product {
+              position: relative;
+              float: left;
+              width: 16.6%;
+              height: 220px;
+              font-size: 12px;
+              line-height: 12px;
+              text-align: center;
+              a {
+                display: inline-block;
+              }
+              img {
+                width: auto;
+                height: 111px;
+              }
+              .pro-img {
+                height: 127px;
+                margin-top: 20px;
+              }
+              .pro-name {
+                font-weight: bold;
+                margin-top: 10px;
+                color: $colorB;
+              }
+              .pro-price {
+                margin-top: 5px;
+                color: $colorA;
+              }
+              &:before {
+                content: "";
+                position: absolute;
+                top: 28px;
+                right: 0;
+                border-left: 1px solid $colorF;
+                height: 100px;
+                width: 1px;
+              }
+              &:last-child:before {
+                display: none;
+              }
+            }
           }
         }
       }
+
       .header-search {
         width: 319px;
         .wrapper {
