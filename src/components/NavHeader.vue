@@ -59,14 +59,16 @@
 
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "nav-header",
   data() {
     return {
       phoneList: [],
-      username: "test",
-      cartCount:1
     };
+  },
+  computed: {
+    ...mapState(["username", "cartCount"]),
   },
   mounted() {
     this.getProductList();
@@ -94,7 +96,13 @@ export default {
       this.$router.push("/login");
     },
     logout() {
-      this.$router.push("/login");
+      this.axios.post("/user/logout").then(() => {
+        this.$message.success("退出成功");
+        this.$cookie.set("userId", "", { expires: "-1" });
+        this.$store.dispatch("saveUserName", "");
+        this.$store.dispatch("saveCartCount", "0");
+        location.reload();
+      });
     },
     goToCart() {
       this.$router.push("/cart");

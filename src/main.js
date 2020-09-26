@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueCookie from 'vue-cookie'
 import { Message } from 'element-ui'
 
 // 根据前端的跨域方式做调整 
@@ -38,7 +39,7 @@ axios.interceptors.response.use(function(response) {
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios);
-
+Vue.use(VueCookie);
 
 new Vue({
     router,
