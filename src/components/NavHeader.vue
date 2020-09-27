@@ -27,7 +27,7 @@
         </div>
         <div class="header-menu">
           <div class="menu-item">
-            小米手机
+            <span>小米手机</span>
             <div class="children">
               <ul>
                 <li class="product" v-for="(item,index) in phoneList" :key="index">
@@ -188,7 +188,9 @@ export default {
           font-size: 16px;
           line-height: 112px;
           margin-right: 20px;
-          cursor: pointer;
+          span {
+            cursor: pointer;
+          }
           &:hover {
             color: $colorA;
             .children {
@@ -199,6 +201,7 @@ export default {
           .children {
             height: 0;
             opacity: 0;
+            background-color: #ffffff;
             position: absolute;
             top: 112px;
             left: 0;
